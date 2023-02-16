@@ -40,11 +40,12 @@ export const getBook = (bookId) => (store) => {
 }
 
 // thunk action creators
+
+
 export const fetchBooks = () => async (dispatch) => {
   const response = await fetch(`/api/books`);
   if (response.ok) {
-    // console.log('curses! can you hear me?')
-    // console.log(response.json())
+
     const books = await response.json();
     dispatch(receiveBooks(books))
   }
@@ -52,6 +53,14 @@ export const fetchBooks = () => async (dispatch) => {
 
 export const fetchBook = (bookId) => async (dispatch) => {
   const response = await fetch(`/api/books/${bookId}`)
+  if (response.ok) {
+    const book = await response.json()
+    dispatch(receiveBook(book))
+  }
+}
+
+export const scanBook = (isbn) => async (dispatch) => {
+  const response = await fetch(`http://openlibrary.org/api/books?bibkeys=ISBN:${isbn}&jscmd=data&format=json`)
   if (response.ok) {
     const book = await response.json()
     dispatch(receiveBook(book))
