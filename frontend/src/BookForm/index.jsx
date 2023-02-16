@@ -7,15 +7,26 @@ const BookForm = () => {
   const dispatch = useDispatch()
   const [isbn, setIsbn] = useState("")
 
-  const handleSubmit = () => {
+  useEffect = () => {
 
+  }
+
+  const handleSubmit = async e => {
+    e.preventDefault()
+    const isbnData = {
+      bibkeys: isbn
+    }
+    dispatch(scanBook(isbnData))
+    .then((response) => {
+        console.log(response)
+      })
   }
 
   return (
     <>
-    <form>
-      <input type="text" name="" value={isbn} onChange={setIsbn} />
-      <button type="submit" handleSubmit={handleSubmit} value="submit">
+    <form onSubmit={handleSubmit}>
+      <input type="text" name="" value={isbn} onChange={e => setIsbn(e.target.value)} />
+      <button type="submit" value="submit">
         click me!  
       </button>
     </form>

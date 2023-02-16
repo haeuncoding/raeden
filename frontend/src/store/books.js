@@ -59,8 +59,17 @@ export const fetchBook = (bookId) => async (dispatch) => {
   }
 }
 
-export const scanBook = (isbn) => async (dispatch) => {
-  const response = await fetch(`http://openlibrary.org/api/books?bibkeys=ISBN:${isbn}&jscmd=data&format=json`)
+export const scanBook = (isbnData) => async (dispatch) => {
+  const response = await fetch(`https://openlibrary.org/api/books/${isbnData}`, {
+    method: "GET",
+    headers: {
+      "Access-Control-Allow-Origin": "lhttps://localhost:3000",
+      "Content-Type": "application/json",
+      "Content-Type": "text/plain",
+      "Accept": "application/json"
+    }
+  })
+  console.log(response)
   if (response.ok) {
     const book = await response.json()
     dispatch(receiveBook(book))
